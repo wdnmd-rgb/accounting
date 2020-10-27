@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.BillDao">
+
+    <resultMap type="com.entity.Bill" id="BillMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="dealDay" column="deal_day" jdbcType="VARCHAR"/>
+        <result property="dealTime" column="deal_time" jdbcType="VARCHAR"/>
+        <result property="interestDay" column="interest_day" jdbcType="VARCHAR"/>
+        <result property="dealType" column="deal_type" jdbcType="VARCHAR"/>
+        <result property="debit" column="debit" jdbcType="NUMERIC"/>
+        <result property="credit" column="credit" jdbcType="NUMERIC"/>
+        <result property="balance" column="balance" jdbcType="NUMERIC"/>
+        <result property="digest" column="digest" jdbcType="VARCHAR"/>
+        <result property="serialNo" column="serial_no" jdbcType="VARCHAR"/>
+        <result property="flowNo" column="flow_no" jdbcType="VARCHAR"/>
+        <result property="businessName" column="business_name" jdbcType="VARCHAR"/>
+        <result property="purpose" column="purpose" jdbcType="VARCHAR"/>
+        <result property="businessNo" column="business_no" jdbcType="VARCHAR"/>
+        <result property="businessDigest" column="business_digest" jdbcType="VARCHAR"/>
+        <result property="otherDigest" column="other_digest" jdbcType="VARCHAR"/>
+        <result property="payBranch" column="pay_branch" jdbcType="VARCHAR"/>
+        <result property="payName" column="pay_name" jdbcType="VARCHAR"/>
+        <result property="payNo" column="pay_no" jdbcType="VARCHAR"/>
+        <result property="payBankNo" column="pay_bank_no" jdbcType="VARCHAR"/>
+        <result property="payBankName" column="pay_bank_name" jdbcType="VARCHAR"/>
+        <result property="payBankAddress" column="pay_bank_address" jdbcType="VARCHAR"/>
+        <result property="companyBranch" column="company_branch" jdbcType="VARCHAR"/>
+        <result property="companyNo" column="company_no" jdbcType="VARCHAR"/>
+        <result property="companyName" column="company_name" jdbcType="VARCHAR"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+        <result property="accessory" column="accessory" jdbcType="VARCHAR"/>
+        <result property="strikeBalance" column="strike_balance" jdbcType="VARCHAR"/>
+        <result property="extendDigest" column="extend_digest" jdbcType="VARCHAR"/>
+        <result property="transactionNo" column="transaction_no" jdbcType="VARCHAR"/>
+        <result property="billNo" column="bill_no" jdbcType="VARCHAR"/>
+        <result property="orderNo" column="order_no" jdbcType="VARCHAR"/>
+        <result property="interiorNo" column="interior_no" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BillMap">
+        select
+          id, deal_day, deal_time, interest_day, deal_type, debit, credit, balance, digest, serial_no, flow_no, business_name, purpose, business_no, business_digest, other_digest, pay_branch, pay_name, pay_no, pay_bank_no, pay_bank_name, pay_bank_address, company_branch, company_no, company_name, information, accessory, strike_balance, extend_digest, transaction_no, bill_no, order_no, interior_no
+        from accounting.bill
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BillMap">
+        select
+          id, deal_day, deal_time, interest_day, deal_type, debit, credit, balance, digest, serial_no, flow_no, business_name, purpose, business_no, business_digest, other_digest, pay_branch, pay_name, pay_no, pay_bank_no, pay_bank_name, pay_bank_address, company_branch, company_no, company_name, information, accessory, strike_balance, extend_digest, transaction_no, bill_no, order_no, interior_no
+        from accounting.bill
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BillMap">
+        select
+        id, deal_day, deal_time, interest_day, deal_type, debit, credit, balance, digest, serial_no, flow_no,
+        business_name, purpose, business_no, business_digest, other_digest, pay_branch, pay_name, pay_no, pay_bank_no,
+        pay_bank_name, pay_bank_address, company_branch, company_no, company_name, information, accessory,
+        strike_balance, extend_digest, transaction_no, bill_no, order_no, interior_no
+        from accounting.bill
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dealDay != null and dealDay != ''">
+                and deal_day = #{dealDay}
+            </if>
+            <if test="dealTime != null and dealTime != ''">
+                and deal_time = #{dealTime}
+            </if>
+            <if test="interestDay != null and interestDay != ''">
+                and interest_day = #{interestDay}
+            </if>
+            <if test="dealType != null and dealType != ''">
+                and deal_type = #{dealType}
+            </if>
+            <if test="debit != null">
+                and debit = #{debit}
+            </if>
+            <if test="credit != null">
+                and credit = #{credit}
+            </if>
+            <if test="balance != null">
+                and balance = #{balance}
+            </if>
+            <if test="digest != null and digest != ''">
+                and digest = #{digest}
+            </if>
+            <if test="serialNo != null and serialNo != ''">
+                and serial_no = #{serialNo}
+            </if>
+            <if test="flowNo != null and flowNo != ''">
+                and flow_no = #{flowNo}
+            </if>
+            <if test="businessName != null and businessName != ''">
+                and business_name = #{businessName}
+            </if>
+            <if test="purpose != null and purpose != ''">
+                and purpose = #{purpose}
+            </if>
+            <if test="businessNo != null and businessNo != ''">
+                and business_no = #{businessNo}
+            </if>
+            <if test="businessDigest != null and businessDigest != ''">
+                and business_digest = #{businessDigest}
+            </if>
+            <if test="otherDigest != null and otherDigest != ''">
+                and other_digest = #{otherDigest}
+            </if>
+            <if test="payBranch != null and payBranch != ''">
+                and pay_branch = #{payBranch}
+            </if>
+            <if test="payName != null and payName != ''">
+                and pay_name = #{payName}
+            </if>
+            <if test="payNo != null and payNo != ''">
+                and pay_no = #{payNo}
+            </if>
+            <if test="payBankNo != null and payBankNo != ''">
+                and pay_bank_no = #{payBankNo}
+            </if>
+            <if test="payBankName != null and payBankName != ''">
+                and pay_bank_name = #{payBankName}
+            </if>
+            <if test="payBankAddress != null and payBankAddress != ''">
+                and pay_bank_address = #{payBankAddress}
+            </if>
+            <if test="companyBranch != null and companyBranch != ''">
+                and company_branch = #{companyBranch}
+            </if>
+            <if test="companyNo != null and companyNo != ''">
+                and company_no = #{companyNo}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+            <if test="accessory != null and accessory != ''">
+                and accessory = #{accessory}
+            </if>
+            <if test="strikeBalance != null and strikeBalance != ''">
+                and strike_balance = #{strikeBalance}
+            </if>
+            <if test="extendDigest != null and extendDigest != ''">
+                and extend_digest = #{extendDigest}
+            </if>
+            <if test="transactionNo != null and transactionNo != ''">
+                and transaction_no = #{transactionNo}
+            </if>
+            <if test="billNo != null and billNo != ''">
+                and bill_no = #{billNo}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="interiorNo != null and interiorNo != ''">
+                and interior_no = #{interiorNo}
+            </if>
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询条数-->
+    <select id="queryAllNum" resultType="java.lang.Integer">
+        select
+        count(*)
+        from accounting.bill
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="dealDay != null and dealDay != ''">
+                and deal_day = #{dealDay}
+            </if>
+            <if test="dealTime != null and dealTime != ''">
+                and deal_time = #{dealTime}
+            </if>
+            <if test="interestDay != null and interestDay != ''">
+                and interest_day = #{interestDay}
+            </if>
+            <if test="dealType != null and dealType != ''">
+                and deal_type = #{dealType}
+            </if>
+            <if test="debit != null">
+                and debit = #{debit}
+            </if>
+            <if test="credit != null">
+                and credit = #{credit}
+            </if>
+            <if test="balance != null">
+                and balance = #{balance}
+            </if>
+            <if test="digest != null and digest != ''">
+                and digest = #{digest}
+            </if>
+            <if test="serialNo != null and serialNo != ''">
+                and serial_no = #{serialNo}
+            </if>
+            <if test="flowNo != null and flowNo != ''">
+                and flow_no = #{flowNo}
+            </if>
+            <if test="businessName != null and businessName != ''">
+                and business_name = #{businessName}
+            </if>
+            <if test="purpose != null and purpose != ''">
+                and purpose = #{purpose}
+            </if>
+            <if test="businessNo != null and businessNo != ''">
+                and business_no = #{businessNo}
+            </if>
+            <if test="businessDigest != null and businessDigest != ''">
+                and business_digest = #{businessDigest}
+            </if>
+            <if test="otherDigest != null and otherDigest != ''">
+                and other_digest = #{otherDigest}
+            </if>
+            <if test="payBranch != null and payBranch != ''">
+                and pay_branch = #{payBranch}
+            </if>
+            <if test="payName != null and payName != ''">
+                and pay_name = #{payName}
+            </if>
+            <if test="payNo != null and payNo != ''">
+                and pay_no = #{payNo}
+            </if>
+            <if test="payBankNo != null and payBankNo != ''">
+                and pay_bank_no = #{payBankNo}
+            </if>
+            <if test="payBankName != null and payBankName != ''">
+                and pay_bank_name = #{payBankName}
+            </if>
+            <if test="payBankAddress != null and payBankAddress != ''">
+                and pay_bank_address = #{payBankAddress}
+            </if>
+            <if test="companyBranch != null and companyBranch != ''">
+                and company_branch = #{companyBranch}
+            </if>
+            <if test="companyNo != null and companyNo != ''">
+                and company_no = #{companyNo}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name = #{companyName}
+            </if>
+            <if test="information != null and information != ''">
+                and information = #{information}
+            </if>
+            <if test="accessory != null and accessory != ''">
+                and accessory = #{accessory}
+            </if>
+            <if test="strikeBalance != null and strikeBalance != ''">
+                and strike_balance = #{strikeBalance}
+            </if>
+            <if test="extendDigest != null and extendDigest != ''">
+                and extend_digest = #{extendDigest}
+            </if>
+            <if test="transactionNo != null and transactionNo != ''">
+                and transaction_no = #{transactionNo}
+            </if>
+            <if test="billNo != null and billNo != ''">
+                and bill_no = #{billNo}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="interiorNo != null and interiorNo != ''">
+                and interior_no = #{interiorNo}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into accounting.bill(deal_day, deal_time, interest_day, deal_type, debit, credit, balance, digest, serial_no, flow_no, business_name, purpose, business_no, business_digest, other_digest, pay_branch, pay_name, pay_no, pay_bank_no, pay_bank_name, pay_bank_address, company_branch, company_no, company_name, information, accessory, strike_balance, extend_digest, transaction_no, bill_no, order_no, interior_no)
+        values (#{dealDay}, #{dealTime}, #{interestDay}, #{dealType}, #{debit}, #{credit}, #{balance}, #{digest}, #{serialNo}, #{flowNo}, #{businessName}, #{purpose}, #{businessNo}, #{businessDigest}, #{otherDigest}, #{payBranch}, #{payName}, #{payNo}, #{payBankNo}, #{payBankName}, #{payBankAddress}, #{companyBranch}, #{companyNo}, #{companyName}, #{information}, #{accessory}, #{strikeBalance}, #{extendDigest}, #{transactionNo}, #{billNo}, #{orderNo}, #{interiorNo})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into accounting.bill(deal_day, deal_time, interest_day, deal_type, debit, credit, balance, digest,
+        serial_no, flow_no, business_name, purpose, business_no, business_digest, other_digest, pay_branch, pay_name,
+        pay_no, pay_bank_no, pay_bank_name, pay_bank_address, company_branch, company_no, company_name, information,
+        accessory, strike_balance, extend_digest, transaction_no, bill_no, order_no, interior_no)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dealDay}, #{entity.dealTime}, #{entity.interestDay}, #{entity.dealType}, #{entity.debit},
+            #{entity.credit}, #{entity.balance}, #{entity.digest}, #{entity.serialNo}, #{entity.flowNo},
+            #{entity.businessName}, #{entity.purpose}, #{entity.businessNo}, #{entity.businessDigest},
+            #{entity.otherDigest}, #{entity.payBranch}, #{entity.payName}, #{entity.payNo}, #{entity.payBankNo},
+            #{entity.payBankName}, #{entity.payBankAddress}, #{entity.companyBranch}, #{entity.companyNo},
+            #{entity.companyName}, #{entity.information}, #{entity.accessory}, #{entity.strikeBalance},
+            #{entity.extendDigest}, #{entity.transactionNo}, #{entity.billNo}, #{entity.orderNo}, #{entity.interiorNo})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into accounting.bill(deal_day, deal_time, interest_day, deal_type, debit, credit, balance, digest,
+        serial_no, flow_no, business_name, purpose, business_no, business_digest, other_digest, pay_branch, pay_name,
+        pay_no, pay_bank_no, pay_bank_name, pay_bank_address, company_branch, company_no, company_name, information,
+        accessory, strike_balance, extend_digest, transaction_no, bill_no, order_no, interior_no)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.dealDay}, #{entity.dealTime}, #{entity.interestDay}, #{entity.dealType}, #{entity.debit},
+            #{entity.credit}, #{entity.balance}, #{entity.digest}, #{entity.serialNo}, #{entity.flowNo},
+            #{entity.businessName}, #{entity.purpose}, #{entity.businessNo}, #{entity.businessDigest},
+            #{entity.otherDigest}, #{entity.payBranch}, #{entity.payName}, #{entity.payNo}, #{entity.payBankNo},
+            #{entity.payBankName}, #{entity.payBankAddress}, #{entity.companyBranch}, #{entity.companyNo},
+            #{entity.companyName}, #{entity.information}, #{entity.accessory}, #{entity.strikeBalance},
+            #{entity.extendDigest}, #{entity.transactionNo}, #{entity.billNo}, #{entity.orderNo}, #{entity.interiorNo})
+        </foreach>
+        on duplicate key update
+        deal_day = values(deal_day) , deal_time = values(deal_time) , interest_day = values(interest_day) , deal_type =
+        values(deal_type) , debit = values(debit) , credit = values(credit) , balance = values(balance) , digest =
+        values(digest) , serial_no = values(serial_no) , flow_no = values(flow_no) , business_name =
+        values(business_name) , purpose = values(purpose) , business_no = values(business_no) , business_digest =
+        values(business_digest) , other_digest = values(other_digest) , pay_branch = values(pay_branch) , pay_name =
+        values(pay_name) , pay_no = values(pay_no) , pay_bank_no = values(pay_bank_no) , pay_bank_name =
+        values(pay_bank_name) , pay_bank_address = values(pay_bank_address) , company_branch = values(company_branch) ,
+        company_no = values(company_no) , company_name = values(company_name) , information = values(information) ,
+        accessory = values(accessory) , strike_balance = values(strike_balance) , extend_digest = values(extend_digest)
+        , transaction_no = values(transaction_no) , bill_no = values(bill_no) , order_no = values(order_no) ,
+        interior_no = values(interior_no)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update accounting.bill
+        <set>
+            <if test="dealDay != null and dealDay != ''">
+                deal_day = #{dealDay},
+            </if>
+            <if test="dealTime != null and dealTime != ''">
+                deal_time = #{dealTime},
+            </if>
+            <if test="interestDay != null and interestDay != ''">
+                interest_day = #{interestDay},
+            </if>
+            <if test="dealType != null and dealType != ''">
+                deal_type = #{dealType},
+            </if>
+            <if test="debit != null">
+                debit = #{debit},
+            </if>
+            <if test="credit != null">
+                credit = #{credit},
+            </if>
+            <if test="balance != null">
+                balance = #{balance},
+            </if>
+            <if test="digest != null and digest != ''">
+                digest = #{digest},
+            </if>
+            <if test="serialNo != null and serialNo != ''">
+                serial_no = #{serialNo},
+            </if>
+            <if test="flowNo != null and flowNo != ''">
+                flow_no = #{flowNo},
+            </if>
+            <if test="businessName != null and businessName != ''">
+                business_name = #{businessName},
+            </if>
+            <if test="purpose != null and purpose != ''">
+                purpose = #{purpose},
+            </if>
+            <if test="businessNo != null and businessNo != ''">
+                business_no = #{businessNo},
+            </if>
+            <if test="businessDigest != null and businessDigest != ''">
+                business_digest = #{businessDigest},
+            </if>
+            <if test="otherDigest != null and otherDigest != ''">
+                other_digest = #{otherDigest},
+            </if>
+            <if test="payBranch != null and payBranch != ''">
+                pay_branch = #{payBranch},
+            </if>
+            <if test="payName != null and payName != ''">
+                pay_name = #{payName},
+            </if>
+            <if test="payNo != null and payNo != ''">
+                pay_no = #{payNo},
+            </if>
+            <if test="payBankNo != null and payBankNo != ''">
+                pay_bank_no = #{payBankNo},
+            </if>
+            <if test="payBankName != null and payBankName != ''">
+                pay_bank_name = #{payBankName},
+            </if>
+            <if test="payBankAddress != null and payBankAddress != ''">
+                pay_bank_address = #{payBankAddress},
+            </if>
+            <if test="companyBranch != null and companyBranch != ''">
+                company_branch = #{companyBranch},
+            </if>
+            <if test="companyNo != null and companyNo != ''">
+                company_no = #{companyNo},
+            </if>
+            <if test="companyName != null and companyName != ''">
+                company_name = #{companyName},
+            </if>
+            <if test="information != null and information != ''">
+                information = #{information},
+            </if>
+            <if test="accessory != null and accessory != ''">
+                accessory = #{accessory},
+            </if>
+            <if test="strikeBalance != null and strikeBalance != ''">
+                strike_balance = #{strikeBalance},
+            </if>
+            <if test="extendDigest != null and extendDigest != ''">
+                extend_digest = #{extendDigest},
+            </if>
+            <if test="transactionNo != null and transactionNo != ''">
+                transaction_no = #{transactionNo},
+            </if>
+            <if test="billNo != null and billNo != ''">
+                bill_no = #{billNo},
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                order_no = #{orderNo},
+            </if>
+            <if test="interiorNo != null and interiorNo != ''">
+                interior_no = #{interiorNo},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from accounting.bill where id = #{id}
+    </delete>
+
+</mapper>

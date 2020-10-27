@@ -1,15 +1,16 @@
 package com.service;
 
-import com.entity.Accounting;
+import com.entity.Bill;
+
 import java.util.List;
 
 /**
- * (Accounting)表服务接口
+ * (Bill)表服务接口
  *
  * @author makejava
- * @since 2020-10-21 17:01:29
+ * @since 2020-10-26 19:50:50
  */
-public interface AccountingService {
+public interface BillService {
 
     /**
      * 通过ID查询单条数据
@@ -17,32 +18,39 @@ public interface AccountingService {
      * @param id 主键
      * @return 实例对象
      */
-    Accounting queryById(Integer id);
+    Bill queryById(Integer id);
 
     /**
-     * 查询多条数据
+     * 通过实体作为筛选条件查询
      *
-     * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param bill 实例对象
      * @return 对象列表
      */
-    List<Accounting> queryAllByLimit(int offset, int limit);
+    List<Bill> queryAll(Bill bill);
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param bill 实例对象
+     * @return 条数
+     */
+    int queryAllNum(Bill bill);
 
     /**
      * 新增数据
      *
-     * @param accounting 实例对象
+     * @param bill 实例对象
      * @return 实例对象
      */
-    Accounting insert(Accounting accounting);
+    Bill insert(Bill bill);
 
     /**
      * 修改数据
      *
-     * @param accounting 实例对象
+     * @param bill 实例对象
      * @return 实例对象
      */
-    Accounting update(Accounting accounting);
+    Bill update(Bill bill);
 
     /**
      * 通过主键删除数据
